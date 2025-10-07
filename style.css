@@ -1,0 +1,324 @@
+/*
+ * Style para "Folclore Brasileiro: Lendas e Tradições"
+ * TEMA: Terror/Tensão
+ * LAYOUT: Grade (Grid) com Cartões de Lenda de Altura Fixa, Imagens Nítidas
+ */
+
+/* --- Variáveis CSS --- */
+:root {
+    /* Cores do Pesadelo */
+    --cor-fundo-escuro: #111111; /* Preto Carbono */
+    --cor-sombra-noite: #1f1f1f; /* Cinza Escuro */
+    --cor-perigo: #8b0000; /* Vermelho Escuro (Sangue/Perigo) */
+    --cor-destaque-luz: #cccccc; /* Cinza Claro, Luz da Lua */
+    --cor-texto-principal: #e0e0e0; /* Texto claro no escuro */
+    --cor-borda-detalhe: #444444;
+
+    /* Fontes */
+    --fonte-titulo: 'Creepster', cursive;
+    --fonte-corpo: 'Roboto Mono', monospace;
+
+    /* Espaçamento */
+    --espacamento-padrao: 2rem;
+}
+
+/* --- Reset Básico e Estilo Base --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--fonte-corpo);
+    color: var(--cor-texto-principal);
+    background-color: var(--cor-fundo-escuro);
+    line-height: 1.7;
+    padding-top: 100px; 
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Efeito de granulação/ruído na tela */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Padrão de ruído/estática sutil */
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23n)" opacity="0.1"/></svg>');
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* --- Cabeçalho (Header) - Letreiro enferrujado --- */
+header {
+    background: var(--cor-sombra-noite);
+    color: var(--cor-destaque-luz);
+    padding: 1.5rem var(--espacamento-padrao);
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.7);
+    border-bottom: 3px dashed var(--cor-perigo);
+}
+
+header h1 {
+    font-family: var(--fonte-titulo);
+    font-size: 2.5rem;
+    color: var(--cor-perigo);
+    text-shadow: 0 0 10px var(--cor-perigo);
+    margin-bottom: 0.8rem;
+    letter-spacing: 3px;
+    animation: flicker 2s infinite alternate;
+}
+
+@keyframes flicker {
+    0% { opacity: 1; text-shadow: 0 0 10px var(--cor-perigo); }
+    50% { opacity: 0.95; text-shadow: 0 0 5px var(--cor-perigo); }
+    100% { opacity: 1; text-shadow: 0 0 12px var(--cor-perigo); }
+}
+
+/* --- Navegação (Nav) --- */
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+nav a {
+    color: var(--cor-destaque-luz);
+    text-decoration: none;
+    font-weight: bold;
+    padding: 0.5rem 0;
+    position: relative;
+    transition: color 0.3s;
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--cor-destaque-luz);
+    transform: scaleX(0);
+    transition: transform 0.3s ease-in-out;
+}
+
+nav a:hover, nav a:focus {
+    color: var(--cor-perigo);
+    outline: none;
+}
+
+nav a:hover::after, nav a:focus::after {
+    background: var(--cor-perigo);
+    transform: scaleX(1);
+}
+
+/* --- CONTEÚDO PRINCIPAL: CSS Grid para Layout --- */
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--espacamento-padrao);
+    display: grid; 
+    grid-template-columns: 1fr;
+    gap: var(--espacamento-padrao);
+}
+
+/* A seção de introdução deve ocupar a largura total */
+#intro {
+    grid-column: 1 / -1; 
+}
+
+/* --- Imagem de Introdução (Ajustes de tamanho e espaçamento) --- */
+#intro img {
+    /* NOVO: Aumenta a largura máxima para preencher mais espaço (80% do container) */
+    max-width: 80%; 
+    height: auto;
+    object-fit: unset;
+    /* NOVO: Aumenta a margem superior para abaixar mais a imagem */
+    margin-top: 3rem; 
+    /* Margem inferior para espaçar do próximo conteúdo */
+    margin-bottom: 2rem; 
+    margin-left: auto;
+    margin-right: auto;
+    display: block; /* Garante que as margens auto funcionem para centralizar */
+    border: 5px solid var(--cor-perigo); /* Mantém o estilo de borda */
+    border-radius: 2px;
+    filter: sepia(50%) saturate(150%) brightness(80%);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+}
+
+
+/* --- Seções de Lendas (Cards) --- */
+section {
+    background-color: var(--cor-sombra-noite);
+    color: var(--cor-destaque-luz);
+    padding: var(--espacamento-padrao);
+    margin-bottom: 0; 
+    border-radius: 4px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5), inset 0 0 5px rgba(0, 0, 0, 0.8);
+    border: 1px solid var(--cor-borda-detalhe);
+    transition: transform 0.3s, box-shadow 0.3s;
+
+    /* REGRAS CHAVE PARA ALINHAMENTO DO BOTÃO */
+    display: flex;
+    flex-direction: column;
+    /* Altura mínima ajustada para caber o texto e a imagem completa */
+    min-height: 650px; 
+}
+
+section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 30px rgba(139, 0, 0, 0.4); 
+}
+
+section h2 {
+    font-family: var(--fonte-titulo);
+    color: var(--cor-perigo);
+    font-size: 2rem;
+    border-bottom: 2px solid var(--cor-perigo);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+}
+
+section h3 {
+    color: var(--cor-destaque-luz);
+    margin-top: 1.5rem;
+    font-size: 1.3rem;
+}
+
+section p {
+    font-size: 1rem;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+/* --- Imagens das Lendas (Não Cortadas) --- */
+section img {
+    max-width: 100%;
+    
+    height: auto; /* Permite que a altura se ajuste ao conteúdo */
+    object-fit: unset; /* Remove a regra de corte */
+    
+    display: block;
+    margin: 1rem auto; /* Centraliza a imagem */
+    border: 5px solid var(--cor-perigo);
+    border-radius: 2px;
+    filter: sepia(50%) saturate(150%) brightness(80%);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+}
+
+
+/* --- Botões "Saiba Mais" - Alinhamento forçado ao fundo do card --- */
+button {
+    background-color: var(--cor-perigo);
+    color: var(--cor-texto-principal);
+    border: 2px solid var(--cor-texto-principal);
+    padding: 0.8rem 1.5rem;
+    margin-top: 1rem;
+    border-radius: 0; 
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-family: var(--fonte-corpo);
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(139, 0, 0, 0.5);
+    transition: background-color 0.3s, color 0.3s;
+    text-transform: uppercase;
+    
+    /* REGRA CHAVE PARA ALINHAMENTO DO BOTÃO */
+    margin-top: auto; 
+}
+
+button:hover {
+    background-color: var(--cor-texto-principal);
+    color: var(--cor-perigo);
+    border-color: var(--cor-perigo);
+    transform: scale(1.05);
+}
+
+button:focus {
+    outline: 3px solid var(--cor-perigo);
+    outline-offset: 4px;
+}
+
+/* --- Conteúdo Expansível (usado com JavaScript) --- */
+.expandable-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
+    padding-top: 0;
+    margin-top: 1rem;
+    border-top: 1px dashed var(--cor-borda-detalhe);
+    background-color: #0d0d0d; 
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.expandable-content[aria-hidden="false"] {
+    max-height: 800px;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+
+/* --- Rodapé (Footer) --- */
+footer {
+    background-color: var(--cor-fundo-escuro);
+    color: var(--cor-borda-detalhe);
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.9rem;
+    margin-top: var(--espacamento-padrao);
+    border-top: 2px solid var(--cor-perigo);
+}
+
+footer img {
+    margin-top: 0.5rem;
+    opacity: 0.3; 
+    filter: grayscale(100%);
+}
+
+/* --- Media Queries: Layout de Colunas --- */
+@media (min-width: 850px) {
+    /* Em telas maiores, alteramos o grid para 3 colunas para as lendas */
+    main {
+        grid-template-columns: repeat(3, 1fr); 
+    }
+
+    /* A seção de introdução continua ocupando todas as 3 colunas */
+    #intro {
+        grid-column: 1 / -1; 
+    }
+}
+
+/* --- Media Queries para Responsividade (Mobile) --- */
+@media (max-width: 768px) {
+    body {
+        padding-top: 140px;
+    }
+    header h1 {
+        font-size: 2rem;
+    }
+    nav ul {
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+    }
+    main {
+        padding: 1rem;
+    }
+    section {
+        padding: 1.5rem;
+        /* Remove a altura mínima em mobile para não forçar cards grandes demais */
+        min-height: auto; 
+    }
+}
