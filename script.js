@@ -1,7 +1,7 @@
-         // JS Simples para Interatividade e ARIA
+// JS Simples para Interatividade e ARIA
 document.addEventListener('DOMContentLoaded', function() {
-    // Adicionando as novas lendas 'mula' e 'corposeco'
-    const buttons = ['saci', 'curupira', 'iara', 'mula', 'corposeco']; 
+    // CORREÇÃO: Adicionando 'boitata' à lista de lendas
+    const buttons = ['saci', 'curupira', 'iara', 'mula', 'corposeco', 'boitata']; 
     
     buttons.forEach(id => {
         const btn = document.getElementById('btn-' + id);
@@ -13,6 +13,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 const isExpanded = btn.getAttribute('aria-expanded') === 'true';
                 btn.setAttribute('aria-expanded', !isExpanded);
                 content.setAttribute('aria-hidden', isExpanded);
+                
+                // Melhoria: Adicionar uma classe de estilo para a expansão funcionar visualmente
+                content.classList.toggle('expanded');
+                
                 btn.textContent = isExpanded ? 'Saiba Mais' : 'Fechar';
             });
             
